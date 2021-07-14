@@ -42,4 +42,50 @@ window.addTask = function addTask() {
     window.updateLocalStorage(false);
   }
 };
+
+window.editTask = function editTask(data) {
+  const list = document.getElementsByTagName('li');
+
+  Array.from(list).forEach((li) => {
+    if (li.id === data.id) {
+      li.style.backgroundColor = '#fff59c78';
+      const img = li.getElementsByTagName('img')[0];
+
+      img.src = TrashImg;
+    } else {
+      li.style.backgroundColor = 'white';
+      const img = li.getElementsByTagName('img')[0];
+      img.src = MoreImg;
+    }
+  });
 };
+
+window.removeTask = function removetask(data) {
+  let id;
+  if (!data.id) {
+    id = data;
+  } else {
+    id = data.id;
+  }
+  const temp = [];
+  tasks.forEach((task) => {
+    if (task.id !== id) {
+      temp.push(task);
+    }
+  });
+  tasks = temp;
+  window.updateLocalStorage(true);
+};
+
+window.clear = function clear() {
+  const temp = [];
+  tasks.forEach((task) => {
+    if (task.completed !== true) {
+      temp.push(task);
+    }
+  });
+  tasks = temp;
+  window.updateLocalStorage(true);
+};
+
+window.updateLocalStorage();
