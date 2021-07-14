@@ -1,20 +1,45 @@
 import _ from 'lodash';
-import printMe from './print.js';
 import './style.css';
 
- function component() {
-   const element = document.createElement('div');
-  const btn = document.createElement('button');
+let tasks = null;
 
-   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-   element.classList.add('hello');
+/**       AddTask adds tasks to the tasks list      */
+window.addTask = function addTask() {
+  const str = document.getElementById('description').value;
+  const firstLetter = str.charAt(0).toUpperCase();
+  str.replace(str.charAt(0), firstLetter);
+  const description = str;
+  const completed = false;
+  const date = new Date();
+  const id = date.getMilliseconds();
 
-  btn.innerHTML = 'Click me and check the console!';
-  btn.onclick = printMe;
+  if (!tasks) {
+    tasks = [];
+  }
 
-  element.appendChild(btn);
+  const position = tasks.length + 1;
 
-   return element;
- }
+  if (tasks && description !== '') {
+    const task = {
+      description,
+      completed,
+      position,
+      id,
+    };
+    tasks.push(task);
+    tasks.sort((taskA, taskB) => {
+      const indexA = taskA.position;
+      const indexB = taskB.position;
+      if (indexA < indexB) {
+        return -1;
+      }
+      if (indexA > indexB) {
+        return 1;
+      }
+      return 0;
+    });
 
- document.body.appendChild(component());
+    window.updateLocalStorage(false);
+  }
+};
+};
