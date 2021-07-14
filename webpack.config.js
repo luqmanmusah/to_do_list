@@ -12,7 +12,7 @@ module.exports = {
   },
  plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
+      title: 'To-do-List',
       template: './src/index.html',
       filename: 'index.html'
     }),
@@ -21,6 +21,7 @@ module.exports = {
    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: '/',
   },
   module: {
     rules: [
