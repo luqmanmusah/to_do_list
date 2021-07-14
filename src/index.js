@@ -88,4 +88,49 @@ window.clear = function clear() {
   window.updateLocalStorage(true);
 };
 
+window.markcompleted = function markcompleted(id) {
+  tasks.find((task) => task.id === id).completed = true;
+};
+
+/**       UpdateLocalStorage saves and retrieves from local storage       */
+window.updateLocalStorage = function updateLocalStorage(remove) {
+  if (remove !== true) {
+    if (tasks === null) {
+      tasks = JSON.parse(window.localStorage.getItem('tasks'));
+    }
+  }
+
+  window.localStorage.setItem('tasks', JSON.stringify(tasks));
+  window.displayTasks();
+};
+
+/**       Display tasks is used to show the Task collection      */
+window.displayTasks = function displayTasks() {
+  const container = document.getElementById('container');
+  const list = document.createElement('ul');
+  const EnterImg = '&#8629';
+  if (tasks) {
+    list.id = 'list';
+    tasks.forEach((task, index) => {
+      const { description, id } = task;
+      const liId = `li${index}`;
+      const taskCard = `<li id=${liId} onclick="window.editTask(${liId})" >
+              <div class="task"> 
+                 <input  type="checkbox" name=${id}   id=${id} />               
+                     <input
+                      id="li-description-${id}"
+                      type="text"
+                      class="description"
+                      placeholder=${description}
+                    />
+                 <button class="edit-btn" id="edit-btn-${id}" type="button"> 
+                  <img class="add-btn-img" src=${MoreImg} alt="" /> 
+                 </button>
+                </div>             
+              </div>
+             </li>`;
+      list.insertAdjacentHTML('beforeend', taskCard);
+    });
+  }
+};
 window.updateLocalStorage();
