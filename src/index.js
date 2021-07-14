@@ -132,5 +132,39 @@ window.displayTasks = function displayTasks() {
       list.insertAdjacentHTML('beforeend', taskCard);
     });
   }
+
+  const template = `
+  <div class="top">
+  <h1 class="title">Today's To Do</h1>
+           <button id="refresh-btn" type="button" 
+            type="button"> 
+            <img class="add-btn-img" src=${RecycleImg} alt="" /> 
+            </button>
+  </div>       
+          <form onsubmit="window.addTask()" id="task-form">
+            <input
+              id="description"
+              type="text"
+              class="text"
+              placeholder="Add to your list ..."
+            />
+            <button id="add-btn" type="submit" 
+            type="button"> 
+          ${EnterImg}
+            </button>
+          </form>       
+          `;
+
+  container.innerHTML = template;
+  const buttonHtml = document.createElement('button');
+  /// `<button id="clear-btn" class="clear-btn" onclick="window.clear()"></button>`;
+  buttonHtml.id = 'clear-btn';
+  buttonHtml.classList.add('clear-btn');
+  buttonHtml.onclick = 'window.clear()';
+  buttonHtml.textContent = 'Clear completed tasks.';
+  container.insertAdjacentElement('beforeend', list);
+  container.insertAdjacentElement('beforeend', buttonHtml);
 };
+
 window.updateLocalStorage();
+window.displayTasks();

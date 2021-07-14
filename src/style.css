@@ -1,3 +1,29 @@
 body {
-    background-color: bisque;
+    background-color: white;
+}
+
+h1,
+h3,
+h6,
+p {
+  margin: unset;
+}
+
+button {
+  border: unset;
+  background-color: unset;
+  cursor: pointer;
+}
+
+.container {
+  width: 500px;
+  min-height: max-content;
+  background: #f6f6f6;
+  box-shadow: 3px 3px 3px 3px grey;
+  justify-items: stretch;
+  display: grid;
+  grid-template-rows: 36px 36px auto 36px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
 }

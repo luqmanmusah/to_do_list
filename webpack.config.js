@@ -1,6 +1,8 @@
 const path = require('path');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const options = {};
 module.exports = {
  mode: 'development',
  entry: {
@@ -12,11 +14,11 @@ module.exports = {
   },
  plugins: [
     new HtmlWebpackPlugin({
-      title: 'To-do-List',
       template: './src/index.html',
-      filename: 'index.html'
     }),
+    new WebpackManifestPlugin(options),
   ],
+
   output: {
    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
