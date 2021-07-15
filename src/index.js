@@ -89,11 +89,9 @@ window.clear = function clear() {
   tasks = temp;
   window.updateLocalStorage(true);
 };
-
 window.markcompleted = function markcompleted(id) {
   tasks.find((task) => task.id === id).completed = true;
 };
-
 
 window.updateLocalStorage = function updateLocalStorage(remove) {
   if (remove !== true) {
@@ -105,8 +103,6 @@ window.updateLocalStorage = function updateLocalStorage(remove) {
   window.localStorage.setItem('tasks', JSON.stringify(tasks));
   window.displayTasks();
 };
-
-
 window.displayTasks = function displayTasks() {
   const container = document.getElementById('container');
   const list = document.createElement('ul');
