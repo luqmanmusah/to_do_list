@@ -130,6 +130,7 @@ window.displayTasks = function displayTasks() {
       div.id = divId;
       div.classList.add('drag-div');
       div.draggable = true;
+      div.addEventListener('click', () => editTask(divId, tasks));
       div.data = index;
       div.addEventListener('drag', (EventTarget) => {
         div.classList.add('dragging');
