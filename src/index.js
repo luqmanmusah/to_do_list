@@ -2,6 +2,7 @@ import './style.css';
 import RecycleImg from './recycle.svg';
 import MoreImg from './more.svg';
 import TrashImg from './delete.svg';
+import { dragStart, allowDrop, drop } from './sorting.js';
 
 let tasks = null;
 
@@ -106,11 +107,40 @@ window.updateLocalStorage = function updateLocalStorage(remove) {
 window.displayTasks = function displayTasks() {
   const container = document.getElementById('container');
   const list = document.createElement('ul');
+  list.id = 'list';
   const EnterImg = '&#8629';
   if (tasks) {
     list.id = 'list';
     tasks.forEach((task, index) => {
       const { description, id } = task;
+      const li = document.createElement('li');
+      li.id = index;
+      li.addEventListener('drop', (EventTarget) => {
+        li.classList.remove('dragging');
+        drop(EventTarget);
+      });
+
+      li.addEventListener('dragover', (EventTarget) => {
+        allowDrop(EventTarget);
+      });
+      const div = document.createElement('div');
+      const divId = `div${task.index}`;
+
+      div.classList.add('task');
+      div.id = divId;
+      div.classList.add('drag-div');
+      div.draggable = true;
+      div.data = index;
+      div.addEventListener('drag', (EventTarget) => {
+        div.classList.add('dragging');
+        dragStart(EventTarget);
+      });
+
+      const inputCheckbox = document.createElement('input');
+      inputCheckbox.addEventListener('click', () => {
+        window.update();
+      });
+
       const liId = `li${index}`;
       const taskCard = `<li id=${liId} onclick="window.editTask(${liId})" >
               <div class="task"> 
