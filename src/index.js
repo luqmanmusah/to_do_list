@@ -1,5 +1,8 @@
 import _ from 'lodash';
 import './style.css';
+import RecycleImg from './recycle.svg';
+import MoreImg from './more.svg';
+import TrashImg from './delete.svg';
 
 let tasks = null;
 
