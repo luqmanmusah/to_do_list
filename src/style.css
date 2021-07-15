@@ -98,3 +98,26 @@ button {
     border: unset;
     background: transparent;
   }
+
+  .circle {
+    width: 28px;
+    height: 28px;
+    background-color: black;
+  }
+  
+  #add-btn {
+    opacity: 0.3;
+  }
+  
+  .add-btn-img {
+    width: 14px;
+    opacity: 0.3;
+  }
+  
+  .refresh-btn {
+    text-align: end;
+  }
+  
+  .clear-btn {
+    color: rgba(165, 165, 165, 0.76);
+  }
