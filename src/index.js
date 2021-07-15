@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import './style.css';
 import RecycleImg from './recycle.svg';
 import MoreImg from './more.svg';
@@ -95,7 +94,7 @@ window.markcompleted = function markcompleted(id) {
   tasks.find((task) => task.id === id).completed = true;
 };
 
-/**       UpdateLocalStorage saves and retrieves from local storage       */
+
 window.updateLocalStorage = function updateLocalStorage(remove) {
   if (remove !== true) {
     if (tasks === null) {
@@ -107,7 +106,7 @@ window.updateLocalStorage = function updateLocalStorage(remove) {
   window.displayTasks();
 };
 
-/**       Display tasks is used to show the Task collection      */
+
 window.displayTasks = function displayTasks() {
   const container = document.getElementById('container');
   const list = document.createElement('ul');
