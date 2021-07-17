@@ -3,8 +3,7 @@ import RecycleImg from './recycle.svg';
 import MoreImg from './more.svg';
 import { drop, allowDrop, drag } from './sorting.js';
 import updateTasks from './status.js';
-
-let tasks = null;
+// import { addTask, editTask, clear } from './add_remove.js';
 
 window.addTask = function addTask(tasks) {
   const str = document.getElementById('description').value;
@@ -44,6 +43,9 @@ window.addTask = function addTask(tasks) {
   }
 };
 
+let tasks = null;
+
+/**       Saves and retrieves from local storage       */
 window.updateLocalStorage = function updateLocalStorage(retrieve) {
   if (retrieve === true) {
     if (tasks === null) {
@@ -55,15 +57,18 @@ window.updateLocalStorage = function updateLocalStorage(retrieve) {
   window.displayTasks();
 };
 
+/**       Handler for calling a task from and inline declared listener */
 window.callAddTask = function callAddTask() {
   window.addTask(tasks);
 };
 
+/**       Handler for calling a task from and inline declared listener */
 window.restart = function restart() {
   tasks = null;
   window.updateLocalStorage(false);
 };
 
+/**       Update the state of the tasks            */
 window.update = function update(data) {
   if (!data) {
     const response = updateTasks();
@@ -75,6 +80,7 @@ window.update = function update(data) {
   window.updateLocalStorage(false);
 };
 
+/**       Display tasks is used to show the Task collection      */
 window.displayTasks = function displayTasks() {
   const container = document.getElementById('container');
   const list = document.createElement('ul');
@@ -122,6 +128,9 @@ window.displayTasks = function displayTasks() {
       inputTask.type = 'text';
       inputTask.classList.add('description');
       inputTask.placeholder = description;
+      if (task.completed) {
+        inputTask.style.textDecoration = 'line-through';
+      }
       inputTask.value = description || null;
       inputTask.data = task.index;
       inputTask.addEventListener('change', () => {
@@ -162,15 +171,18 @@ window.displayTasks = function displayTasks() {
               class="text"
               placeholder="Add to your list ..."
             />
-            <button id="add-btn" type="submit" 
-            type="button"> 
+            <button id="add-btn" type="button" onclick="window.callAddTask()"> 
           ${EnterImg}
             </button>
           </form>       
           `;
 
   container.innerHTML = template;
+  const buttonHtml = document.createElement('button');
+  buttonHtml.id = 'clear-btn';
+  buttonHtml.textContent = 'Clear completed tasks.';
   container.insertAdjacentElement('beforeend', list);
+  container.insertAdjacentElement('beforeend', buttonHtml);
 };
 
 window.updateLocalStorage(true);
