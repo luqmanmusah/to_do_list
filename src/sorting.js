@@ -1,17 +1,18 @@
+/* --- This file contains the functions required to create the Drag&Drop effect    */
 let toLiIndex = null;
 
-function allowDrop(event) {
-  event.preventDefault();
-  toLiIndex = event.target.id;
+function allowDrop(e) {
+  e.preventDefault();
+  toLiIndex = e.currentTarget.id;
 }
 
-function dragStart(event) {
-  event.dataTransfer.setData('Text', event.target.id);
+function drag(e) {
+  e.dataTransfer.setData('text', e.currentTarget.id);
 }
 
-function drop(event) {
-  event.preventDefault();
-  const data = event.dataTransfer.getData('Text');
+function drop(e) {
+  e.preventDefault();
+  const data = e.dataTransfer.getData('text');
   const oldDiv = document.getElementById(data);
   const oldLi = document.getElementById(oldDiv.data);
   const newLi = document.getElementById(toLiIndex);
@@ -21,10 +22,10 @@ function drop(event) {
   oldDiv.data = newDivData;
   newDiv.data = oldDivData;
   oldLi.appendChild(newDiv);
-  oldLi.removeChild(oldLi);
+  oldLi.removeChild(oldDiv);
   newLi.appendChild(oldDiv);
 
   window.update();
 }
 
-export { dragStart, allowDrop, drop };
+export { allowDrop, drop, drag };
